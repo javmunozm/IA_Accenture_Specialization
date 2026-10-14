@@ -45,10 +45,16 @@ def obtener_dato_de_prueba(pregunta):
     datos = respuesta.json()
 
     
-    if respuesta.status_code != 200 or "candidates" not in datos:
-        raise RuntimeError(f"Error {respuesta.status_code}: {datos}")
-    
-    return datos["candidates"][0]["content"]["parts"][0]["text"]
+    if not respuesta.ok:
+        raise RuntimeError(f"Error {respuesta.status_code}: {respuesta.text}")
+ 
+    datos = respuesta.json()
+ 
+    try:
+        return datos["candidates"][0]["content"]["parts"][0]["text"]
+    except (KeyError, IndexError):
+        raise RuntimeError(f"La respuesta no trae texto generado: {datos}")
+
 
 print(obtener_dato_de_prueba("Confirma en una frase corta que esta conexion funciona"))
     
