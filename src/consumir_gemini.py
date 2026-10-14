@@ -50,8 +50,6 @@ def obtener_dato_de_prueba(pregunta):
     if not respuesta.ok:
         raise RuntimeError(f"Error {respuesta.status_code}: {respuesta.text}")
  
-    datos = respuesta.json()
- 
     try:
         return datos["candidates"][0]["content"]["parts"][0]["text"]
     except (KeyError, IndexError):
@@ -130,17 +128,17 @@ def enviar_peticion(url, headers, body):
     try:
         respuesta = requests.post(url, headers=headers, json=body, timeout=30)
     except requests.exceptions.Timeout:
-        raise RuntimeError("El servicio tardó demasiado en responder. Intenta de nuevo.")
+        raise RuntimeError("El servicio tardo demasiado en responder. Intenta de nuevo.")
     except requests.exceptions.ConnectionError:
         raise RuntimeError("No se pudo conectar con el servicio. Intenta de nuevo en unos segundos.")
 
     if not respuesta.ok:
-        raise RuntimeError(f"El servicio respondió con error {respuesta.status_code}: {respuesta.text}")
+        raise RuntimeError(f"El servicio responde con error {respuesta.status_code}: {respuesta.text}")
 
     try:
         return respuesta.json()
     except requests.exceptions.JSONDecodeError:
-        raise RuntimeError("La respuesta del servicio no llegó en el formato esperado.")
+        raise RuntimeError("La respuesta del servicio no llego en el formato esperado.")
 
 
 def extraer_texto(datos):
@@ -158,8 +156,8 @@ def obtener_dato_de_prueba(pregunta):
 
 if __name__ == "__main__":
     pruebas = {
-        "Entrada vacía": "",
-        "Entrada válida": "Confirma en una frase corta que esta conexión funciona",
+        "Entrada vacia": "",
+        "Entrada valida": "Confirma en una frase corta que esta conexión funciona",
     }
 
     for nombre, pregunta in pruebas.items():
@@ -167,4 +165,4 @@ if __name__ == "__main__":
         try:
             print(obtener_dato_de_prueba(pregunta))
         except (ValueError, RuntimeError) as error:
-            print("No se pudo completar la operación:", error)
+            print("No se pudo completar la operacion:", error)
