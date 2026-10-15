@@ -153,6 +153,14 @@ def obtener_dato_de_prueba(pregunta):
     datos = enviar_peticion(url, headers, body)
     return extraer_texto(datos)
 
+def calcular_costo(datos: dict, precio_entrada: float, precio_salida: float) -> float:
+    """Calcula el costo en USD de una peticion usando usageMetadata"""
+    uso = datos["usageMetadata"]
+    tokens_entrada = uso["promptTokenCount"]
+    token_salida = uso["candidatesTokenCount"]
+    return (tokens_entrada * precio_entrada) + (token_salida * precio_salida)
+
+
 
 if __name__ == "__main__":
     pruebas = {
