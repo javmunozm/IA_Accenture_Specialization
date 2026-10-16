@@ -1,0 +1,14 @@
+{
+  "clasificar_mensaje": {
+    "exitos": 3,
+    "intentos": 3
+  },
+  "extraer_datos": {
+    "exitos": 3,
+    "intentos": 3
+  },
+  "resumen_corto": {
+    "exitos": 3,
+    "intentos": 3
+  }
+}

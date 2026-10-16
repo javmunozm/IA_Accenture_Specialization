@@ -105,6 +105,9 @@ print(obtener_dato_de_prueba("Confirma en una frase corta que esta conexión fun
 '''
 ##validaciones, exception, etc.
 import os
+import json
+import re
+
 import requests
 from dotenv import load_dotenv
 
@@ -113,7 +116,7 @@ load_dotenv()
 
 MODELO_POR_DEFECTO ="gemini-3.5-flash-lite"
 
-def armar_peticion(pregunta, modelo=MODELO_POR_DEFECTO):
+def armar_peticion(pregunta, modelo=MODELO_POR_DEFECTO, system_instruction=None, response_schema=None):
     if not pregunta or not pregunta.strip():
         raise ValueError("La pregunta no puede estar vacía")
 
@@ -124,6 +127,13 @@ def armar_peticion(pregunta, modelo=MODELO_POR_DEFECTO):
     url = f"https://generativelanguage.googleapis.com/v1beta/models/{modelo}:generateContent"
     headers = {"x-goog-api-key": api_key}
     body = {"contents": [{"parts": [{"text": pregunta}]}]}
+    if system_instruction:
+        body["systemInstruction"] = {"parts": [{"text": system_instruction}]}
+    if response_schema is not None:
+        body["generationConfig"] = {
+            "responseMimeType": "application/json",
+            "responseSchema": response_schema,
+        }
     return url, headers, body
 
 
@@ -156,6 +166,7 @@ def obtener_dato_de_prueba(pregunta):
     datos = enviar_peticion(url, headers, body)
     return extraer_texto(datos)
 
+
 def calcular_costo(datos: dict, precio_entrada: float, precio_salida: float) -> float:
     """Calcula el costo en USD de una peticion usando usageMetadata"""
     uso = datos["usageMetadata"]
@@ -163,6 +174,26 @@ def calcular_costo(datos: dict, precio_entrada: float, precio_salida: float) -> 
     token_salida = uso["candidatesTokenCount"]
     return (tokens_entrada * precio_entrada) + (token_salida * precio_salida)
 
+
+def parsear_respuesta_json(texto, claves_requeridas=("categoria", "confianza")):
+    """limpia, valida y interpreta el json devuelto"""
+    texto_limpio = texto.strip() #quita espacios
+    texto_limpio = re.sub(r"^```(?:json)?\s*", "", texto_limpio) ##borra los ```
+    texto_limpio = re.sub(r"\s*```$", "", texto_limpio)## borra '''
+
+    try:
+        datos = json.loads(texto_limpio)
+    except json.JSONDecodeError:
+        raise ValueError("La respuesta del modelo no JSON valido")
+
+    if not isinstance(datos, dict):
+        raise ValueError("la respuesta del modelo no es un objeto JSON")
+
+    faltantes = [clave for clave in claves_requeridas if clave not in datos]
+    if faltantes:
+        raise ValueError(f"la respuesta no tiene la estructura espada. Faltan: {faltantes}")
+
+    return datos
 
 
 if __name__ == "__main__":
