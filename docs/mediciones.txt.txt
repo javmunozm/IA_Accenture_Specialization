@@ -1,0 +1,24 @@
+##Hora 20:57, Fecha 15-10-2026
+py -m src.Modulo_1.Bloque_8_9.comparar_modelos
+
+=== gemini-3.5-flash-lite ===
+intento 1:  1.36 segundos
+intento 2:  2.35 segundos
+intento 3:  2.06 segundos
+intento 4:  1.80 segundos
+Latencia promedio: 1.89 segundos
+Tokens: {'promptTokenCount': 10, 'candidatesTokenCount': 137, 'totalTokenCount': 147, 'promptTokensDetails': [{'modality': 'TEXT', 'tokenCount': 10}], 'serviceTier': 'standard'}
+Costo de la última petición: 0.000346 USD
+Costo por 1000 tokens -> entrada: 0.000300 USD | salida: 0.002500 USD
+Respuestas de calidad guardadas en docs/respuestas_gemini-3.5-flash-lite.txt
+
+=== gemini-3.7-flash ===
+intento 1:  26.62 segundos
+intento 2:  5.81 segundos
+intento 3:  4.81 segundos
+intento 4:  5.77 segundos
+Latencia promedio: 10.75 segundos
+Tokens: {'promptTokenCount': 10, 'candidatesTokenCount': 159, 'totalTokenCount': 666, 'promptTokensDetails': [{'modality': 'TEXT', 'tokenCount': 10}], 'thoughtsTokenCount': 497, 'serviceTier': 'standard'}
+Costo de la última petición: 0.000604 USD
+Costo por 1000 tokens -> entrada: 0.000750 USD | salida: 0.003750 USD
+No se pudo medir gemini-3.7-flash: El servicio tardo demasiado en responder. Intenta de nuevo.

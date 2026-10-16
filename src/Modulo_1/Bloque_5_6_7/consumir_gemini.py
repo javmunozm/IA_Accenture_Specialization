@@ -21,6 +21,8 @@ def obtener_dato_de_prueba(pregunta):
 print(obtener_dato_de_prueba("Confirma en una frase corta que esta conexion funciona"))
 '''
 ##version mejorada de lo anterior
+##version anterior era molesta, por que habia que escribir key siempre referenciando el api key expuesta
+##y como soy medio torpe escribi varias veces Key, lo otro, por norma no se expone nunca esa info en la url
 '''
 import os
 import requests
@@ -109,7 +111,9 @@ from dotenv import load_dotenv
 load_dotenv()
 
 
-def armar_peticion(pregunta):
+MODELO_POR_DEFECTO ="gemini-3.5-flash-lite"
+
+def armar_peticion(pregunta, modelo=MODELO_POR_DEFECTO):
     if not pregunta or not pregunta.strip():
         raise ValueError("La pregunta no puede estar vacía")
 
@@ -117,7 +121,6 @@ def armar_peticion(pregunta):
     if not api_key:
         raise ValueError("No se encontró GEMINI_API_KEY en el .env")
 
-    modelo = "gemini-3.5-flash-lite"
     url = f"https://generativelanguage.googleapis.com/v1beta/models/{modelo}:generateContent"
     headers = {"x-goog-api-key": api_key}
     body = {"contents": [{"parts": [{"text": pregunta}]}]}
