@@ -1,4 +1,4 @@
-from src.Modulo_1.Bloque_5_6_7.consumir_gemini import armar_peticion, enviar_peticion, extraer_texto, parsear_respuesta_json
+from src.consumir_gemini import armar_peticion, enviar_peticion, extraer_texto, parsear_respuesta_json
 
 
 SYSTEM_INSTRUCTION = (

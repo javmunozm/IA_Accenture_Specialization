@@ -46,28 +46,28 @@ El archivo `.env` está excluido en `.gitignore` y nunca se sube al repositorio.
 
 ## Cómo ejecutar
 
-Los scripts importan módulos con la forma `from src.Modulo_1...`, por eso **se ejecutan desde la raíz y con `-m`**, usando puntos en vez de barras y sin `.py`. (En macOS/Linux, cambia `py` por `python3`.)
+Los scripts importan módulos con la forma `from src.consumir_gemini import ...`, por eso **se ejecutan desde la raíz y con `-m`**, usando puntos en vez de barras y sin `.py`. (En macOS/Linux, cambia `py` por `python3`.)
 
 ```powershell
-py -m src.Modulo_1.Bloque_10.prueba_salida_json
+py -m src.prueba_salida_json
 ```
 
-Si se ejecuta el archivo directamente (con el botón ▶ de VS Code o con `py src/Modulo_1/...py`), aparece `ModuleNotFoundError: No module named 'src'`.
+Si se ejecuta el archivo directamente (con el botón ▶ de VS Code o con `py src/prueba_salida_json.py`), aparece `ModuleNotFoundError: No module named 'src'`.
 
 ### Scripts principales
 
 | Comando | Qué hace | Bloque |
 | --- | --- | --- |
-| `py -m src.Modulo_1.Bloque_5_6_7.consumir_gemini` | Prueba la conexión: una entrada vacía (error controlado) y una válida | 5–7 |
-| `py -m src.Modulo_1.Bloque_8_9.prueba_costo` | Hace una petición real y calcula su costo en USD a partir de `usageMetadata` | 8 |
-| `py -m src.Modulo_1.Bloque_8_9.comparar_modelos` | Compara latencia y costo de dos modelos, y guarda sus respuestas en `docs/respuestas_<modelo>.txt` | 9 |
-| `py -m src.Modulo_1.Bloque_10.prueba_system_prompt` | Prueba el prompt de sistema separado (respuesta en máximo 3 oraciones) | 10 |
-| `py -m src.Modulo_1.Bloque_10.prueba_salida_json` | Obtiene una clasificación en JSON forzado con `responseSchema` y la valida | 10 |
+| `py -m src.consumir_gemini` | Prueba la conexión: una entrada vacía (error controlado) y una válida | 5–7 |
+| `py -m src.prueba_costo` | Hace una petición real y calcula su costo en USD a partir de `usageMetadata` | 8 |
+| `py -m src.comparar_modelos` | Compara latencia y costo de dos modelos, y guarda sus respuestas en `docs/respuestas_<modelo>.txt` | 9 |
+| `py -m src.prueba_system_prompt` | Prueba el prompt de sistema separado (respuesta en máximo 3 oraciones) | 10 |
+| `py -m src.prueba_salida_json` | Obtiene una clasificación en JSON forzado con `responseSchema` y la valida | 10 |
 | `py -m prompts.test_consistencia` | Corre cada prompt del banco 3 veces y guarda el resultado en `prompts/registro_resultados.json` | 10 |
 
 ## Módulo principal: `consumir_gemini.py`
 
-Ubicado en `src/Modulo_1/Bloque_5_6_7/`. Todas las demás piezas lo importan.
+Ubicado en `src/`. Todas las demás piezas lo importan.
 
 | Función | Responsabilidad |
 | --- | --- |
@@ -93,11 +93,12 @@ La carpeta `prompts/` contiene:
 .
 ├── docs/                    Documentación, decisiones y evidencias
 ├── prompts/                 Banco de prompts y su prueba de consistencia
-├── src/
-│   └── Modulo_1/
-│       ├── Bloque_5_6_7/    consumir_gemini.py (módulo principal)
-│       ├── Bloque_8_9/      Costo y comparación de modelos
-│       └── Bloque_10/       Prompt de sistema y salida JSON
+├── src/                     Código de la miniaplicación (estructura plana)
+│   ├── consumir_gemini.py   Módulo principal (bloques 5–7)
+│   ├── prueba_costo.py      Costo de una petición (bloque 8)
+│   ├── comparar_modelos.py  Comparación de modelos (bloque 9)
+│   ├── prueba_system_prompt.py   Prompt de sistema (bloque 10)
+│   └── prueba_salida_json.py     Salida JSON validada (bloque 10)
 ├── tests/                   Pruebas exploratorias
 ├── .env.example             Plantilla de variables de entorno (sin valores reales)
 ├── .gitignore
@@ -108,7 +109,7 @@ La carpeta `prompts/` contiene:
 ## Documentación (`docs/`)
 
 - `diagrama_arquitectura.png`: diagrama de arquitectura de la miniaplicación.
-- `decision_arquitectura.md`: decisión de arquitectura.
+- `desicion_arquitectura.md`: decisión de arquitectura.
 - `comparacion_modelos.md`: comparación entre `gemini-3.5-flash-lite` y `gemini-3.7-flash` (latencia, costo y calidad) y modelo elegido.
 - `mediciones.txt`: mediciones de latencia y costo.
 - `respuestas_<modelo>.txt`: respuestas de cada modelo a las preguntas de calidad.

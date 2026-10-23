@@ -175,11 +175,9 @@ pyrightconfig.json
 
 # End of https://www.toptal.com/developers/gitignore/api/python
 
-### Claude Code ###
-# Configuracion personal (permisos locales, etc.) - no se comparte
-.claude/settings.local.json
-# Instrucciones/memoria personales de Claude para este proyecto
+### Herramientas locales ###
+.claude/
+CLAUDE.md
 CLAUDE.local.md
-# Worktrees temporales que Claude puede crear
-.claude/worktrees/
-# Nota: .claude/settings.json y CLAUDE.md SI se suelen versionar (config compartida)
+.mcp.json
+*claude*

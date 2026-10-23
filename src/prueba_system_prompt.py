@@ -1,4 +1,4 @@
-from src.Modulo_1.Bloque_5_6_7.consumir_gemini import armar_peticion, enviar_peticion, extraer_texto
+from src.consumir_gemini import armar_peticion, enviar_peticion, extraer_texto
 
 SYSTEM_INSTRUCTION = "Eres un asistente tecnico, responde siempre maximo en 3 oraciones"
 PREGUNTA = "Explica que es una API en terminos simples"
