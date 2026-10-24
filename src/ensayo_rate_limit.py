@@ -1,6 +1,6 @@
 from src import cliente
 
-PETICIONES = 100
+PETICIONES = 40
 
 for i in range(PETICIONES):
     try:
