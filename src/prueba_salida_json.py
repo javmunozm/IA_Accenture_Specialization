@@ -35,5 +35,5 @@ try:
     print(datos)
     print(type(datos))
     print(f"categoria: {datos['categoria']} | Confianza: {datos['confianza']}")
-except (ValueError, RuntimeError) as error:
+except (ValueError, RuntimeError, TimeoutError, FileNotFoundError) as error:
     print("No se pudo completar la operacion:", error)

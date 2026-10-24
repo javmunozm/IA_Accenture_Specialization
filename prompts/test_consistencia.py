@@ -31,7 +31,7 @@ for prompt in BANCO_DE_PROMPTS:
             texto = extraer_texto(respuesta)
             parsear_respuesta_json(texto, claves_requeridas=prompt["claves_esperadas"])
             exitos += 1
-        except (ValueError, RuntimeError) as error:
+        except (ValueError, RuntimeError, TimeoutError, FileNotFoundError) as error:
             print(f"  intento {intento + 1} falló: {error}")
         time.sleep(PAUSA_SEGUNDOS)
 

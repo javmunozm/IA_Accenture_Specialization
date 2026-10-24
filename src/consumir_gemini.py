@@ -140,10 +140,25 @@ def armar_peticion(pregunta, modelo=MODELO_POR_DEFECTO, system_instruction=None,
 def enviar_peticion(url, headers, body):
     try:
         respuesta = requests.post(url, headers=headers, json=body, timeout=30)
-    except requests.exceptions.Timeout:
-        raise RuntimeError("El servicio tardo demasiado en responder. Intenta de nuevo.")
-    except requests.exceptions.ConnectionError:
-        raise RuntimeError("No se pudo conectar con el servicio. Intenta de nuevo en unos segundos.")
+    ##except requests.exceptions.Timeout:
+    ##    raise RuntimeError("El servicio tardo demasiado en responder. Intenta de nuevo.")
+    ##except requests.exceptions.ConnectionError:
+    ##    raise RuntimeError("No se pudo conectar con el servicio. Intenta de nuevo en unos segundos.")
+    except (requests.exceptions.Timeout, requests.exceptions.ConnectionError):
+        raise TimeoutError("No se pudo conectar al proveedor. Puede ser momentaneo.")
+
+    codigo = respuesta.status_code
+    if codigo in (401, 403):
+        raise ValueError("Credencial invalida o sin permiso. Revisa tu GEMINI_API_KEY.")
+    if codigo == 400: #Este es el verdadero error que se genera con una api mal ingresada...
+        raise ValueError("Peticion rechazada (Bad Request). Error de API")
+    if codigo == 404:
+        raise FileNotFoundError("modelo no existe o mal escrito")
+    if codigo == 429:
+        raise TimeoutError("Demasiados intentos, espere unos minutos para reintentar.")
+    if codigo >= 500:
+        raise TimeoutError("El proveedor no pudo procesar la peticion")
+   
 
     if not respuesta.ok:
         raise RuntimeError(f"El servicio responde con error {respuesta.status_code}: {respuesta.text}")
@@ -206,5 +221,5 @@ if __name__ == "__main__":
         print(f"--- {nombre} ---")
         try:
             print(obtener_dato_de_prueba(pregunta))
-        except (ValueError, RuntimeError) as error:
+        except (ValueError, RuntimeError, TimeoutError, FileNotFoundError) as error:
             print("No se pudo completar la operacion:", error)

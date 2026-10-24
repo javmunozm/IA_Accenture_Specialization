@@ -8,5 +8,5 @@ try:
     respuesta_json = enviar_peticion(url, headers, body)
     texto = extraer_texto(respuesta_json)
     print(texto)
-except (ValueError, RuntimeError) as error:
+except (ValueError, RuntimeError, TimeoutError, FileNotFoundError) as error:
     print("No se puede completar la operacion:", error)

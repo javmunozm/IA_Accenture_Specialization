@@ -54,5 +54,5 @@ for modelo, precio in MODELOS.items():
                 time.sleep(PAUSA_SEGUNDOS)
         print(f"Respuestas de calidad guardadas en {ruta}")
 
-    except (ValueError, RuntimeError) as error:
+    except (ValueError, RuntimeError, TimeoutError, FileNotFoundError) as error:
         print(f"No se pudo medir {modelo}: {error}")

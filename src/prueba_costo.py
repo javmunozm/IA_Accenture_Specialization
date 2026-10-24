@@ -25,5 +25,5 @@ try:
     print(respuesta_json["usageMetadata"])
     costo = calcular_costo(respuesta_json, PRECIO_ENTRADA, PRECIO_SALIDA)
     print(f"Costo real de esta peticion: {costo:.6f} USD")
-except (ValueError, RuntimeError) as error:
+except (ValueError, RuntimeError, TimeoutError, FileNotFoundError) as error:
     print("No se pudo completar la operacion:", error)
