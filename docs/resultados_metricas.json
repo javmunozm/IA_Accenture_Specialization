@@ -1,0 +1,162 @@
+[
+  {
+    "consulta": "que es python?",
+    "referencia": "es un lenguaje de programacion interpretado",
+    "respuesta": "Python es un lenguaje de programación de alto nivel, interpretado y de propósito general, conocido por su sintaxis clara y legible.",
+    "precision": 0.24,
+    "cobertura": 0.83,
+    "f1": 0.37
+  },
+  {
+    "consulta": "cuando salio python?",
+    "referencia": "en 1991",
+    "respuesta": "Python fue lanzado oficialmente el 20 de febrero de 1991 por Guido van Rossum.",
+    "precision": 0.07,
+    "cobertura": 0.5,
+    "f1": 0.12
+  },
+  {
+    "consulta": "que es una lista en python?",
+    "referencia": "una coleccion ordenada que podes ir modificando",
+    "respuesta": "Una lista en Python es una colección ordenada y modificable de elementos que permite almacenar diferentes tipos de datos bajo un mismo nombre.",
+    "precision": 0.13,
+    "cobertura": 0.43,
+    "f1": 0.2
+  },
+  {
+    "consulta": "cual es la capital de chile?",
+    "referencia": "santiago",
+    "respuesta": "La capital de Chile es Santiago.",
+    "precision": 0.17,
+    "cobertura": 1.0,
+    "f1": 0.29
+  },
+  {
+    "consulta": "que es una api rest?",
+    "referencia": "una forma de comunicar sistemas y pasar datos usando peticiones http",
+    "respuesta": "Una API REST es una interfaz que permite la comunicación entre diferentes sistemas a través de internet usando los métodos estándar del protocolo HTTP.",
+    "precision": 0.21,
+    "cobertura": 0.45,
+    "f1": 0.29
+  },
+  {
+    "consulta": "que significa el error 404?",
+    "referencia": "que no se encontro lo que buscabas",
+    "respuesta": "El error 404 significa que la página web que buscas no existe o fue eliminada del servidor.",
+    "precision": 0.18,
+    "cobertura": 0.43,
+    "f1": 0.25
+  },
+  {
+    "consulta": "que significa el codigo http 429?",
+    "referencia": "que mandaste demasiadas peticiones seguidas",
+    "respuesta": "El codigo http 429 significa que el usuario ha enviado demasiadas solicitudes en un tiempo determinado.",
+    "precision": 0.12,
+    "cobertura": 0.4,
+    "f1": 0.19
+  },
+  {
+    "consulta": "cuantos dias tiene un año bisiesto?",
+    "referencia": "366",
+    "respuesta": "Un año bisiesto tiene 366 días.",
+    "precision": 0.17,
+    "cobertura": 1.0,
+    "f1": 0.29
+  },
+  {
+    "consulta": "python es compilado?",
+    "referencia": "no, es interpretado",
+    "respuesta": "Python es un lenguaje interpretado que se compila internamente a bytecode antes de ejecutarse.",
+    "precision": 0.14,
+    "cobertura": 0.67,
+    "f1": 0.24
+  },
+  {
+    "consulta": "como guarda las cosas un json?",
+    "referencia": "en texto plano como pares de clave y valor",
+    "respuesta": "Un archivo JSON guarda las cosas en forma de pares de clave y valor, organizados como objetos o listas de datos.",
+    "precision": 0.33,
+    "cobertura": 0.78,
+    "f1": 0.47
+  },
+  {
+    "consulta": "para que sirve git?",
+    "referencia": "para llevar el control de versiones del codigo",
+    "respuesta": "Git sirve para controlar y registrar los cambios en el código fuente de un proyecto a lo largo del tiempo.",
+    "precision": 0.2,
+    "cobertura": 0.5,
+    "f1": 0.29
+  },
+  {
+    "consulta": "que es un entorno virtual en python?",
+    "referencia": "un espacio aislado para no mezclar las librerias de tus proyectos",
+    "respuesta": "Un entorno virtual en Python es un espacio aislado que permite instalar las librerías específicas de un proyecto sin afectar al sistema global.",
+    "precision": 0.22,
+    "cobertura": 0.45,
+    "f1": 0.29
+  },
+  {
+    "consulta": "en que año llego el hombre a la luna?",
+    "referencia": "en 1969",
+    "respuesta": "El hombre llegó a la luna en el año 1969.",
+    "precision": 0.2,
+    "cobertura": 1.0,
+    "f1": 0.33
+  },
+  {
+    "consulta": "cual es el oceano mas grande?",
+    "referencia": "el pacifico",
+    "respuesta": "El oceano Pacifico es el mas grande del planeta Tierra.",
+    "precision": 0.2,
+    "cobertura": 1.0,
+    "f1": 0.33
+  },
+  {
+    "consulta": "que es un token en una ia?",
+    "referencia": "un pedazo de texto o palabra que procesa el modelo",
+    "respuesta": "Un token es un fragmento de texto, como una palabra o parte de ella, que la inteligencia artificial procesa como unidad básica.",
+    "precision": 0.32,
+    "cobertura": 0.7,
+    "f1": 0.44
+  },
+  {
+    "consulta": "cuantos bits son un byte?",
+    "referencia": "8",
+    "respuesta": "Un byte equivale a ocho bits.",
+    "precision": 0.0,
+    "cobertura": 0.0,
+    "f1": 0.0
+  },
+  {
+    "consulta": "que hace la funcion len en python?",
+    "referencia": "te cuenta cuantos elementos tiene algo",
+    "respuesta": "La función len en Python sirve para devolver el número de elementos que contiene un objeto, como una cadena o una lista.",
+    "precision": 0.05,
+    "cobertura": 0.17,
+    "f1": 0.07
+  },
+  {
+    "consulta": "quien escribio cien años de soledad?",
+    "referencia": "gabriel garcia marquez",
+    "respuesta": "Cien años de soledad fue escrita por el colombiano Gabriel García Márquez.",
+    "precision": 0.08,
+    "cobertura": 0.33,
+    "f1": 0.13
+  },
+  {
+    "consulta": "a cuantos grados hierve el agua a nivel del mar?",
+    "referencia": "a 100 grados",
+    "respuesta": "El agua hierve a nivel del mar a una temperatura de 100 grados Celsius.",
+    "precision": 0.21,
+    "cobertura": 1.0,
+    "f1": 0.35
+  },
+  {
+    "consulta": "para que sirve la temperatura en un modelo de lenguaje?",
+    "referencia": "para regular que tan creativa o aleatoria sale la respuesta",
+    "respuesta": "La temperatura en un modelo de lenguaje sirve para controlar el nivel de creatividad y aleatoriedad en sus respuestas.",
+    "precision": 0.11,
+    "cobertura": 0.2,
+    "f1": 0.14
+  }
+]

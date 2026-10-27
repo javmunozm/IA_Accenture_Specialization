@@ -1,0 +1,82 @@
+[
+  {
+    "consulta": "que es python?",
+    "f1": 0.37,
+    "correccion_factual": "si",
+    "completitud": "si",
+    "contradiccion": "no",
+    "nota": "correcta y completa; F1 bajo porque agrega detalles que no estan en la referencia y 'programacion' sin tilde no coincide con la palabra con tilde"
+  },
+  {
+    "consulta": "cuantos bits son un byte?",
+    "f1": 0.0,
+    "correccion_factual": "si",
+    "completitud": "si",
+    "contradiccion": "no",
+    "nota": "correcta y completa, F1 bajo porque la referencia es 1 sola palabra, 8 frente a ocho"
+  },
+  {
+    "consulta": "que hace la funcion len en python?",
+    "f1": 0.07,
+    "correccion_factual": "si",
+    "completitud": "si",
+    "contradiccion": "no",
+    "nota": "correcta y completa, F1 bajo porque la referencia es coloquial y corta"
+  },
+  {
+    "consulta": "cuando salio python?",
+    "f1": 0.12,
+    "correccion_factual": "si",
+    "completitud": "si",
+    "contradiccion": "no",
+    "nota": "correcta y completa, F1 bajo porque la respuesta agrega dia y el autor"
+  },
+  {
+    "consulta": "quien escribio cien años de soledad?",
+    "f1": 0.13,
+    "correccion_factual": "si",
+    "completitud": "si",
+    "contradiccion": "no",
+    "nota": "correcta y completa, F1 bajo es por los tildes"
+  },
+  {
+    "consulta": "para que sirve la temperatura en un modelo de lenguaje?",
+    "f1": 0.14,
+    "correccion_factual": "si",
+    "completitud": "si",
+    "contradiccion": "no",
+    "nota": "correcta, aunque difiere del a referencia en el uso de 'o' vs 'y' en respuesta , F1 bajo es por la diferencia entre palabras ej creativa vs creatividad"
+  },
+  {
+    "consulta": "cual es el oceano mas grande?",
+    "f1": 0.33,
+    "correccion_factual": "si",
+    "completitud": "si",
+    "contradiccion": "no",
+    "nota": "correcta y completa, F1 bajo porque la respuesta es mas larga"
+  },
+  {
+    "consulta": "a cuantos grados hierve el agua a nivel del mar?",
+    "f1": 0.35,
+    "correccion_factual": "si",
+    "completitud": "si",
+    "contradiccion": "no",
+    "nota": "correcta y completa, F1 bajo porque la respuesta abarca toda la referencia y mas"
+  },
+  {
+    "consulta": "que es un token en una ia?",
+    "f1": 0.44,
+    "correccion_factual": "si",
+    "completitud": "si",
+    "contradiccion": "no",
+    "nota": "correcta y completa, F1 de rango medio, dado que la respuesta es mas larga y completa"
+  },
+  {
+    "consulta": "como guarda las cosas un json?",
+    "f1": 0.47,
+    "correccion_factual": "si",
+    "completitud": "parcial",
+    "contradiccion": "no",
+    "nota": "correcta pero incompleta, no menciona que se guarda en texto plano, F1 de rango medio porque la respuesta es mas larga"
+  }
+]
