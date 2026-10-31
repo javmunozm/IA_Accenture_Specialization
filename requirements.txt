@@ -3,3 +3,5 @@ requests==2.34.2
 pytest==9.1.1
 langchain-core==1.7.3
 langchain-google-genai==4.4.2
+langchain-classic==1.0.8
+pydantic==2.14.2
