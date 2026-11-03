@@ -7,7 +7,9 @@ from  langchain_core.tools import tool
 from pydantic import BaseModel, Field
 
 from src.agente_con_herramientas import buscar_solucion_frecuente, construir_agente, texto_salida
+from src.agente_supervision import generar_reembolso, registro_aprobaciones
 from src.cadena_tres_pasos import construir_modelo
+from src.trazas_agente import registrar_traza
 
 PAUSA_SEGUNDOS = 2
 
@@ -45,7 +47,7 @@ def consultar_ticket_detallado(numero_ticket: str, incluir_historial: bool = Fal
 
 
 #executor and agent
-HERRAMIENTAS = [consultar_ticket_detallado, buscar_solucion_frecuente]
+HERRAMIENTAS = [consultar_ticket_detallado, buscar_solucion_frecuente, generar_reembolso]
 
 PROMPT_AGENTE_CON_HISTORIAL = ChatPromptTemplate.from_messages([
     (
@@ -80,26 +82,43 @@ def construir_agente_con_memoria(modelo, herramientas=HERRAMIENTAS):
     )
 
 if __name__ == "__main__":
+    ## se cambia para agregar trazas
+    # try:
+    #     agente_con_memoria = construir_agente_con_memoria(construir_modelo())
+
+    #     config = {"configurable": {"session_id": "cliente_456"}}
+    #     for entrada in [
+    #         "¿Cual es el estado del ticket TK1001, con su historial?",
+    #         "¿Y ese mismo ticket ya fue resuelto",
+    #     ]:
+    #         resultado = agente_con_memoria.invoke({"entrada": entrada}, config)
+    #         print(f"> {entrada}\n{texto_salida(resultado['output'])}\n")
+    #         time.sleep(PAUSA_SEGUNDOS)
+
+    #     #Dos sesiones diferentes no comparten historial
+    #     config_cliente_1 = {"configurable": {"session_id": "cliente_1"}}
+    #     config_cliente_2 = {"configurable": {"session_id": "cliente_2"}}
+    #     agente_con_memoria.invoke({"entrada": "Estoy preguntando por el ticket TK1001."}, config_cliente_1)
+    #     time.sleep(PAUSA_SEGUNDOS)
+    #     resultado = agente_con_memoria.invoke({"entrada": "¿De que ticket te pregunte?"}, config_cliente_2)
+    #     print(f"> cliente_2: ¿De que ticket te pregunte?\n{texto_salida(resultado['output'])}\n")
+    #     for sesion in ["cliente_456", "cliente_1", "cliente_2"]:
+    #         print(sesion, "->", len(obtener_historial(sesion).messages), "mensajes")
+    # except Exception as error:
+    #     print("no se pudo completar la operacion:", error)
+    CASOS = [
+        ("cliente_123", "¿Como va mi ticket TK1001"),
+        ("cliente_123", "¿Como cambio mi contraseña?"),
+        ("cliente_456", "Reembolso el pedido P1 por $100"),
+    ]
     try:
         agente_con_memoria = construir_agente_con_memoria(construir_modelo())
-
-        config = {"configurable": {"session_id": "cliente_456"}}
-        for entrada in [
-            "¿Cual es el estado del ticket TK1001, con su historial?",
-            "¿Y ese mismo ticket ya fue resuelto",
-        ]:
+        for session_id, entrada in CASOS:
+            config = {"configurable": {"session_id": session_id}}
             resultado = agente_con_memoria.invoke({"entrada": entrada}, config)
+            registrar_traza(session_id, entrada, resultado)
             print(f"> {entrada}\n{texto_salida(resultado['output'])}\n")
             time.sleep(PAUSA_SEGUNDOS)
-
-        #Dos sesiones diferentes no comparten historial
-        config_cliente_1 = {"configurable": {"session_id": "cliente_1"}}
-        config_cliente_2 = {"configurable": {"session_id": "cliente_2"}}
-        agente_con_memoria.invoke({"entrada": "Estoy preguntando por el ticket TK1001."}, config_cliente_1)
-        time.sleep(PAUSA_SEGUNDOS)
-        resultado = agente_con_memoria.invoke({"entrada": "¿De que ticket te pregunte?"}, config_cliente_2)
-        print(f"> cliente_2: ¿De que ticket te pregunte?\n{texto_salida(resultado['output'])}\n")
-        for sesion in ["cliente_456", "cliente_1", "cliente_2"]:
-            print(sesion, "->", len(obtener_historial(sesion).messages), "mensajes")
+        print("registro de aprobaciones:", registro_aprobaciones)
     except Exception as error:
-        print("no se pudo completar la operacion:", error)
+        print("No se pudo completar la operacion:", error)
