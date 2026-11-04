@@ -181,3 +181,4 @@ CLAUDE.md
 CLAUDE.local.md
 .mcp.json
 *claude*
+vectorstore/
