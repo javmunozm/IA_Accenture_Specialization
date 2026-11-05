@@ -6,7 +6,7 @@ from src.indexar_corpus import CARPETA_VECTORSTORE, cargar_vectorstore
 
 PAUSA_SEGUNDOS = 2
 
-PROMPT_TEMPLATE = """Reponde la pregunta usando SOLO el contexto de abajo. Cita la \
+PROMPT_TEMPLATE = """Responde la pregunta usando SOLO el contexto de abajo. Cita la \
 fuente de cada afirmacion con su numero entre corchetes, como [1]. Si el contexto no \
 alcanza para responder, dilo explicitamente en vez de inventar.
 
