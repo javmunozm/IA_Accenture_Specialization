@@ -1,5 +1,6 @@
 import os
 import shutil
+import time
 
 from dotenv import load_dotenv
 from langchain_chroma import Chroma
@@ -8,7 +9,8 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 
 load_dotenv()
 
-CARPETA_VECTORSTORE = "vectorstore/"
+CARPETA_VECTORSTORE = os.path.abspath("vectorstore")
+COLECCION = "corpus_miniapp"
 MODELO_EMBEDDINGS = "models/gemini-embedding-001"
 CHUNK_SIZE = 250
 CHUNK_OVERLAP = 40
@@ -68,6 +70,20 @@ def crear_embeddings():
         raise ValueError('Falta GEMINI_API_KEY. Definela en tu archivo ".env".')
     return GoogleGenerativeAIEmbeddings(model=MODELO_EMBEDDINGS)
 
+def con_reintentos(operacion, max_intentos=4, espera_inicial=5):
+    espera = espera_inicial
+    for intento in range(1, max_intentos + 1):
+        try:
+            return operacion()
+        except Exception as error:
+            mensaje = str(error)
+            es_limite = "429" in mensaje or "RESOURCE_EXHAUSTED" in mensaje
+            if not es_limite or intento == max_intentos:
+                raise
+            print(f"Limite de peticiones alcanzado. Reintento {intento} de {max_intentos - 1} en {espera} s ...")
+            time.sleep(espera)
+            espera *= 2
+
 def partir_corpus(corpus, chunk_size=CHUNK_SIZE, chunk_overlap=CHUNK_OVERLAP):
     splitter = RecursiveCharacterTextSplitter(
         chunk_size=chunk_size, chunk_overlap=chunk_overlap
@@ -81,18 +97,27 @@ def indexar_corpus(corpus, persist_directory, chunk_size=CHUNK_SIZE, chunk_overl
     chunks = partir_corpus(corpus, chunk_size, chunk_overlap)
     embeddings = crear_embeddings()
     shutil.rmtree(persist_directory, ignore_errors=True)
-    vectorstore = Chroma.from_documents(
-        documents=chunks,
-        embedding=embeddings,
-        persist_directory=persist_directory
+    # vectorstore = Chroma.from_documents(
+    #     documents=chunks,
+    #     embedding=embeddings,
+    #     persist_directory=persist_directory
+    # )
+    vectorstore = con_reintentos(
+        lambda: Chroma.from_documents(
+            documents=chunks,
+            embedding=embeddings,
+            collection_name=COLECCION,
+            persist_directory=persist_directory,
+        )
     )
     print(f"Indexados {len(chunks)} chunks en {persist_directory}")
     return vectorstore
 
 def cargar_vectorstore(persis_directory=CARPETA_VECTORSTORE):
     return Chroma(
+        collection_name=COLECCION,
+        embedding_function=crear_embeddings(),
         persist_directory=persis_directory,
-        embedding_function=crear_embeddings()
     )
 
 def titulo(texto):
@@ -103,6 +128,8 @@ def titulo(texto):
 if __name__ == "__main__":
     try:
         titulo("PASO 1: chunking + embeddings + indexacion")
+        print("Ruta del indice:", CARPETA_VECTORSTORE)
+        print("Coleccion:", COLECCION)
         chunks = partir_corpus(CORPUS)
         print(f"Corpus original: {len(CORPUS)} documentos")
         print(f"Despues de chunking: {len(chunks)} chunks")
