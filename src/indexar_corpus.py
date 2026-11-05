@@ -92,9 +92,19 @@ def partir_corpus(corpus, chunk_size=CHUNK_SIZE, chunk_overlap=CHUNK_OVERLAP):
         list(corpus.values()),
         metadatas=[{"fuente":fuente} for fuente in corpus],
     )
+def generar_ids(chunks):
+    contador = {}
+    ids = []
+    for chunk in chunks:
+        fuente = chunk.metadata["fuente"]
+        numero = contador.get(fuente, 0)
+        ids.append(f"{fuente}_{numero}")
+        contador[fuente] = numero + 1
+    return ids
 
 def indexar_corpus(corpus, persist_directory, chunk_size=CHUNK_SIZE, chunk_overlap=CHUNK_OVERLAP):
     chunks = partir_corpus(corpus, chunk_size, chunk_overlap)
+    ids = generar_ids(chunks)
     embeddings = crear_embeddings()
     shutil.rmtree(persist_directory, ignore_errors=True)
     # vectorstore = Chroma.from_documents(
@@ -106,6 +116,7 @@ def indexar_corpus(corpus, persist_directory, chunk_size=CHUNK_SIZE, chunk_overl
         lambda: Chroma.from_documents(
             documents=chunks,
             embedding=embeddings,
+            ids=ids,
             collection_name=COLECCION,
             persist_directory=persist_directory,
         )
@@ -136,6 +147,8 @@ if __name__ == "__main__":
         print()
         for i, chunk in enumerate(chunks, start=1):
             print(f"  chunk {i} [{chunk.metadata['fuente']}] ({len(chunk.page_content)} caracteres)")
+        print()
+        print("Ids:", generar_ids(chunks))
         print()
         print("Calculando embeddings e indexando en Chroma (esto llama a la API)...")
         indexar_corpus(CORPUS, CARPETA_VECTORSTORE)
