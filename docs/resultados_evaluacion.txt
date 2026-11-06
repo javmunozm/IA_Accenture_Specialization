@@ -1,0 +1,17 @@
+Fecha: 2026-11-05
+Configuracion: k=3, chunk_size=250, chunk_overlap=40
+
+0.67  1.00  que hace el cliente si una llamada tarda demasiado
+0.33  1.00  cuanto espera el cliente entre un intento y el siguiente
+0.33  1.00  donde se guarda la clave de la api y como se envia
+0.33  1.00  que funciones intervienen al mandar una pregunta a gemini
+0.67  1.00  que diferencia hay entre un ValueError y un RuntimeError
+0.33  1.00  cuanto cobra el modelo por defecto por millon de tokens
+0.33  1.00  como se calcula el costo de una llamada
+0.33  1.00  como elige el agente la herramienta que va a usar
+0.33  1.00  que tiene que pasar antes de generar un reembolso
+0.33  1.00  como se corren las pruebas sin gastar cuota
+0.33  1.00  que comparan las metricas de precision cobertura y F1
+0.00  n/a  cual es el horario de atencion de la mesa de ayuda
+
+promedio -> precision: 0.361  recall: 1.000
