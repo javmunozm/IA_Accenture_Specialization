@@ -34,9 +34,10 @@ recuperara, filtrara, citara, generara, registrara y supervisara junto.
 
 Corrida real (`py -m src.servicio_rag`):
 - Respuesta con `Fuentes: [1] reintentos, [2] reintentos, [3] errores`.
-- Los 4 eventos con un solo `trace_id` (`trace-747ea593`), solo con `pregunta_len`, conteos, tokens, costo y tiempos.
-- Consumo: 197 tokens de entrada, 139 de salida, 0.0004066 USD; recuperacion 1179.97 ms, generacion 2847.04 ms.
-- Pausa de supervision (`pausado, pendiente: ...`) antes de la decision y estado final despues.
+- Los 4 eventos con un solo `trace_id` (`trace-86d29049`), solo con `pregunta_len`, conteos, tokens, costo y tiempos.
+- Consumo: 197 tokens de entrada, 138 de salida, 0.0004041 USD; recuperacion 1297.9 ms, generacion 10306.8 ms.
+- Pausa de supervision (`pausado, pendiente: ...`) antes de la decision; con `s`: `version 849809fdf663 activada` y estado final `'aprobado': True`.
+- Captura: `docs/prueba_bloque_S1_servicio.png`.
 - `Proceso terminado sin errores.`, sin traceback; `$LASTEXITCODE`: 0.
 
 ## 16-11-2026 (trace_id en el servicio)
